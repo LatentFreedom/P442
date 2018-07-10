@@ -1,0 +1,43 @@
+Lab 3 Documentation
+Isaac Fisch (ifisch)
+Nick Palumbo (npalumbo)
+
+gyro {r/w} {address} {value}
+example use: 
+	gyro r 0x0F
+	gyro w 20 8B
+gyro read or writes a byte from the gyro. The parameters allowed are {r/w} which state what process should be done (either read or write) then an {address} which is a byte in hex, and finally a {value} in hex which is only used when write is invoked. gyro read only takes an address since there is no need for an extra value.
+
+gyrorall
+example use:
+	gyrorall
+gyrorall prints the contents of all the registers related to the gyro. The registers printed are all the readable registers. The registers excluded are the reserved registers which cannot be read or written to.
+
+
+press {r/w} {address} {value}
+example use:
+	press r 0x0F
+	press w 20 C0
+press read or writes a byte from the pressure sensor. The parameters allowed are {r/w} which state what process should be done (either read or write) then an {address} which is a byte in hex, and finally a {value} in hex which is only used when write i invoked. press read only takes an address since there is no need for an extra value.
+
+pressrall
+example use:
+	pressrall
+pressrall prints the contents of all the registers related to the pressure senson. The register printed are all the readable registers. The registers excluded are the reserved registers which cannot be read or written to.
+
+altitude {f/m}
+example use:
+	altitude f
+	altitude m
+altitude prints out the current altitude in either feet {f} or meters {m}. The altitude is calculated given the data from the pressure sensor. 
+
+STM32 Board Wiring for sensors:
+3V -> VCC
+PA5 -> SCL
+PA7 -> SDA
+PA6 -> SDO
+PC5 -> TX
+PC4 -> RX
+PA8 -> CS
+GND -> GND
+

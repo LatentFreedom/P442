@@ -1,0 +1,33 @@
+MILESTONE 2
+Nick Palumbo
+Isaac Fisch
+3/31/2017
+
+Functional Demonstration: DONE
+Field Testing: UNFINISHED
+
+1. What did the team accomplish during this milestone?
+
+During milestone 2 we had to implement the same count functionality as in milestone 1. However, we had to use the real time clock RTC to also take a timestamp. In milestone 1 we did not use a timestamp but instead saved the amount of steps counted per minute. Now in milestone 2 we take a timestamp for every new step. We found that this is not feasible when it comes to memory consumption and have to draw back on how many timestamps we take. We plan to implement a timestamp for a minute with the RTC and collect data again like in milestone 1.
+
+The globals were changed to only be time_data since we only took timestamps and the amount of counts was directly in relation to the index value + 1. However, we plan on implementing count_data again so that we can broaden our data memory to the counts/minute instead of the exact step time. 
+
+2. What was your contribution to the work done on this milestone? Please be as specific as possible.
+
+I implemented the Thread to get and save the timestamp to the global time_data array. I also implemented the functionality for the RTC Driver and RTC DateTime. I made the RTCDateTime timespec convert to a tm time structure so that the time can be printed pretty. I also implemented the functionality for setStartingRTCTime so that our board can have the correct starting time.
+
+Isaac helped implement the funationality that we ended up not using since we found out about time.h. He helped figure out what functions were available and where the rtc.h file and set up the Makefile so we could implement the functions within rtc.h. He also added the rtcInit fnction to get the rtc enabled.
+
+3. Describe a challenge that you experienced in the development of this milestone and what you did to overcome the issue.
+
+The challenges we ran into were problems with getting RTC running. We did not get our variables figured out for the RTCDateTime timespec until some googling about structures and lookingthrough the rtc.h file. After we figured out the RTCDateTime timespec we found out what RTCDriver was set to and things went smooth.
+
+The next problem we ran into was converting the RTCDateTime timespec into a readable timestamp. Andre helped bring me in the right direction in using mktime and ctime_r within time.h. We first had to figure out how to convert the RTCDateTime timespec into a tm struct so it can be used by time.h functions. In order to do this we used the rtcConvertDateTimeToStructTm which was given to us in rtc.h.
+
+The last problem we had was not really a problem that kept us from moving forward. We kept getting flash errors when runnig makeopenocd and gdb. The errors stated are in an image I took but the main error was stated below..
+
+Error: ChibiOS registry integrity check failed, NULL pointer
+
+4. How well is your group functioning as a team?
+
+So far the group is working well together. We have been figuring out how to attack each problem together and implementing everything based on our plan. We both are working on a lot of projects and Isaac does not show up to lab sometimes but we both get enough work in throughout the week to make sure we do not get behind.

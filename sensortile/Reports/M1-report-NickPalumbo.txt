@@ -1,0 +1,41 @@
+MILESTONE 1
+Nick Palumbo
+Isaac Fisch
+3/24/2017
+
+Functional Demonstration: DONE
+
+1. What did the team accomplish during this milestone?
+
+We were able to add functionality to the sensor where we can track a count given a threshold. The sensor gives feedback data from the accelerometer and that is all we needed for this milestone. We both decided to go with a 2 thread approach when when implementing our basic trail counter. 
+
+We had all of our main variables set as global variables. The variables we made are total_count, current_count, numLogs, minutes, threshold, count_data, and time_data. 
+
+- total_count is an integer that holds the total counts that are counted since the program starts. 
+- current_count is an integer that holds the current number of counts within the current minute. 
+- numLogs is an integer that holds the current index of the data arrays. We chose to have numLogs because we did not want to save the current_count if it was not above 0. This way we could save space and not save minutes when the count was 0. 
+- minutes is the global integer to hold the minutes that have passed since the program began running. 
+- threshold is the integer value that is used to make the threads increment count if the threshold is passed over. 
+- count_data is an array used to store the counts within the minute. 
+- time_data is the time array that holds the minutes when a count is greater than 1.
+
+count_data = [3,4,1,1,2,3]
+time_data  = [1,2,4,6,8,9]
+
+Our first thread is the timer thread. The timer thread keeps track of the time (not as accurate as it could be since this is only milestone 1). The timer thread sleeps for 1000*60 milliseconds which is a minute and after each minute the thread will awake and save the current_count captured and save it into a count_data array along with the minute that the activity was captured which is placed in the time_data array. We chose this option because there may be a minute that has no activity. This means that the array of time may not have consecutive minutes. The time_array may have the times 1 minute, 2 minute, 5 minute, etc. When the current_count is 0 the data is not saved. 
+
+The second is the stepCounter thread. The stepCounter thread checks the accel data and when the accel data is above a given threshold the current_count will increment and then the thread will sleep for 5 seconds. If one person walks by, the sensor may fluctuate and count a single person as multiple people. The sleep helps lower bad data (this again is not perfect since it is only milestone 1).
+
+We then implemented the function that reads the accel data and checks it against a threshold. This function accelAboveThreshold returns 1 if the accel is above a threshold or 0 if it is not above the threshold. 
+
+2. What was your contribution to the work done on this milestone? Please be as specific as possible.
+
+I coded the threads for milestone 1. Isaac coded the function accelAboveThreshold. We both read through all the documentation and helped get everything figured out on what functions do what and what registers save what. We both decided how we would approach the project. We both did a good amount of work and neither really did more than the other. 
+
+3. Describe a challenge that you experienced in the development of this milestone and what you did to overcome the issue.
+
+Some of the challenges included undefined function calls. We were getting errors because we did not update our Makefile to include the needed directories and c files. After getting all of the needed files included another problem we ran into was finding out how to initialize the accelerometer. The accelerometer had a simple initializer function that we had to add in within main and also another fucntion to set the rate at which the accelerometer should collect data. The functionlaity was pretty straight forward from there.
+
+4. How well is your group functioning as a team?
+
+The group is working good in tandem. When I do not want to code Isaac picks up and continues where I left off. We take turns reading through the documentation and coding. 

@@ -1,0 +1,24 @@
+Nick Palumbo
+P442-Digital Systems
+January 19, 2017
+
+# Results ######
+
+Our egg timer applications has two threads and our main process.
+The main process creates the reader thread and blinker thread.
+The main process will then go into a loop where it constantly checks the user button.
+If the user button is pressed then the LEDs will turn off if they are on.
+
+Thread 1 (reader)
+The reader thread will wait for input.
+When 's' is pressed the thread will begin to ask the user for a time to set.
+The time will then be placed in a static global variable egg_timer where the blinker thread will use it.
+
+Thread 2 (blinker)
+The blinker thread will blink the North RED LED when the egg_timer has a value.
+The egg_timer will not have a value until it is set the first time.
+
+# Difficulties #
+
+Getting the threads to communicate in an efficient way was troubling.
+We made static variables that could be set by each thread.

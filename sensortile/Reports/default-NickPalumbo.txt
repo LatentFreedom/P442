@@ -1,0 +1,15 @@
+MILESTONE x
+Nick Palumbo
+Isaac Fisch
+x/xx/2017
+
+Functional Demonstration: UNFINISHED
+Field Testing: UNFINISHED
+
+1. What did the team accomplish during this milestone?
+
+2. What was your contribution to the work done on this milestone? Please be as specific as possible.
+
+3. Describe a challenge that you experienced in the development of this milestone and what you did to overcome the issue.
+
+4. How well is your group functioning as a team?

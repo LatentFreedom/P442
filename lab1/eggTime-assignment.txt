@@ -1,0 +1,5 @@
+Design an "egg timer" that utilizes Chibios and at least one thread. To set the timer, the user sends an 's' character on the terminal. A prompt is provided to allow the user to input a time value in integer milliseconds. The range of this value can be from 1 to 10000. Data input will be terminate when the user presses enter.
+
+Once the data is received, a timer should start running. When the timer is running all leds should be off with the exception of the north led. The north led should flash at a rate of 10 hz. When the timer expires all leds should be turned on.
+
+To clear the leds, the user must press the user button on the board. The user can enter the 's' character at any point to reset the timer and change the time.

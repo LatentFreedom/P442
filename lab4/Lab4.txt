@@ -1,0 +1,68 @@
+Lab 4 Documentation
+Isaac Fisch (ifisch)
+Nick Palumbo (npalumbo)
+
+gyro {r/w} {address} {value}
+example use: 
+	gyro r 0x0F
+	gyro w 20 8B
+gyro read or writes a byte from the gyro. The parameters allowed are {r/w} which state what process should be done (either read or write) then an {address} which is a byte in hex, and finally a {value} in hex which is only used when write is invoked. gyro read only takes an address since there is no need for an extra value.
+
+gyrorall
+example use:
+	gyrorall
+gyrorall prints the contents of all the registers related to the gyro. The registers printed are all the readable registers. The registers excluded are the reserved registers which cannot be read or written to.
+
+
+press {r/w} {address} {value}
+example use:
+	press r 0x0F
+	press w 20 C0
+press read or writes a byte from the pressure sensor. The parameters allowed are {r/w} which state what process should be done (either read or write) then an {address} which is a byte in hex, and finally a {value} in hex which is only used when write i invoked. press read only takes an address since there is no need for an extra value.
+
+pressrall
+example use:
+	pressrall
+pressrall prints the contents of all the registers related to the pressure senson. The register printed are all the readable registers. The registers excluded are the reserved registers which cannot be read or written to.
+
+altitude {f/m}
+example use:
+	altitude f
+	altitude m
+altitude prints out the current altitude in either feet {f} or meters {m}. The altitude is calculated given the data from the pressure sensor. 
+altitude conversion formula:
+  altitude_ft = (1-pow(pressure_mb/1013.25,0.190284))*145366.45
+  altitude_m  = altitude_ft/3.280839895
+  
+//// The new methods from lab 4
+get_pressure_registers_for_altitude:
+This function takes no arguments. The function will collect the pressure sensor registers needed to calculate altitude. The registers h, l, and xl are stored in order continuously in a global array holding uint8_t. The global array is named master_log. This master log is needed so that the pressure sensor registers have somewhere to stay while elevator testing is in progress.
+
+savelog:
+Save log is a funciton that should be used when there is logging within the master_log global array. The savelog function loops through the master_log and grabs each register saved so that they can now be converted to altitude and saved into a text file. The altitude is saved into a text file along with the time stamp the log was taken using the screen terminal command with the -L option.
+
+THREADS: There are 3 threads used to work the application.
+[CounterThread]
+Used to show an 'alive' led blinking with the red noth led.
+
+[StarterThread]
+Turn on the NW Blue LED to show visual logging has begun. When the user button is pressed, the global is_logging variable is set to 1 so that the logger thread knows to begin logging. If the logging is already running, the user button will set the global is_logging variable back to 0 for 'not logging' and then turn the NW Blue LED off.
+
+[LoggerThread]
+Log the registers with the funciton get_pressure_registers_for_altitude. Then print the master_log indexes just logged. Then sleep for 100 mS.
+
+(100ms/1 log) -> 300s = 300000ms -> 300000/100 = 3000 logs
+
+currenttime:
+Another command has been added to test the time logging funcitonality. The currenttime command will print the given time with the funciton chTimeNow().
+
+//// Nobody said that this was not sufficient, so we kept our wiring diagram.
+STM32 Board Wiring for sensors:
+3V -> VCC
+PA5 -> SCL
+PA7 -> SDA
+PA6 -> SDO
+PC5 -> TX
+PC4 -> RX
+PA8 -> CS
+GND -> GND
